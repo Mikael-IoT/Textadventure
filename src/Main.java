@@ -1,12 +1,13 @@
 import java.util.Scanner;
 
+
 public class Main {
     public static void main(String[] args) {
         // Initialisering
-        Room pinkRoom = new Room("Pink room", "This is a room with pink walls and pink furniture");
-        Room aHall = new Room("A hall", "A large hallway with rugs on the floor");
-        Room theEntrance = new Room("The entrence", "A large entrance to the map");
-        Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights");
+        Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
+        Room aHall = new Room("A hall", "A large hallway with a fancy rug on the floor");
+        Room theEntrance = new Room("The entrance", "A large entrance to the map.");
+        Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
 
         Room[][] map = {
                 {pinkRoom, aHall},
@@ -14,11 +15,6 @@ public class Main {
         };
         int row = 1;
         int col = 0;
-
-
-        Player player = new Player();
-        System.out.println("Player hp is " + player.hp);
-
         Scanner input = new Scanner(System.in);
 
         System.out.println("Welcome to the Text Adventure Game (TAG)");
@@ -28,9 +24,9 @@ public class Main {
         // Här börjar spelloopen
         while(running) {
             // 1. Skriv ut i vilket rum vi är i
-            System.out.println(map[row][col].name);
-            System.out.println(map[row][col].description);
-            System.out.println("There are " + map[row][col].numberOfdDoors + " doors in this room");
+            System.out.println(map[row][col].getName());
+            System.out.println(map[row][col].getDescription());
+
 
             // 2. Läs in kommando från användaren
             System.out.print("> ");
@@ -90,4 +86,3 @@ public class Main {
         System.out.println("Thanks for playing TAG");
     }
 }
-
