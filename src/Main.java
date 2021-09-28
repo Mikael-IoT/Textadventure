@@ -1,7 +1,42 @@
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 
 public class Main {
+
+    public static void save(int row, int col) {
+
+        File file = new File("./save/saved_game.txt");
+        try{
+            FileWriter fileWriter = new FileWriter(file);
+            String position = String.format("%d, %d", row, col);
+            fileWriter.write(position);
+            fileWriter.close();
+            System.out.println("You have saved your game!");
+
+        } catch (IOException e) {
+            System.out.println("Could not save game");
+        }
+    }
+
+    public static String load() {
+        File file = new File("./save/saved_game.txt");
+        try{
+            Scanner fileScanner = new Scanner(file);
+            String position = fileScanner.nextLine();
+            fileScanner.close();
+            return position;
+        }
+        catch (FileNotFoundException e) {
+            System.out.println("Could not load game");
+
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         // Initialisering
         Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
@@ -40,6 +75,8 @@ public class Main {
             //    Dessa är:
             //      - go
             //      - quit
+            //      - save
+            //      - load
             if(commandParts[0].equalsIgnoreCase("go")) {
                 // Vi har angett go som kommando
 
@@ -77,6 +114,34 @@ public class Main {
                 else {
                     System.out.println("You can't go without any direction");
                 }
+            }
+            if(command.equalsIgnoreCase("save")) {
+            save(row, col);
+            }
+
+            if(command.equalsIgnoreCase("load")) {
+            String position = load();
+            if(position != null){
+                String[] pos = position.split(", ");
+            int oldRow = row;
+            int oldCol = col;
+            row = Integer.parseInt(pos[0]);
+            col = Integer.parseInt(pos[1]);
+            if (row >= map.length) {
+                System.out.println("Error reading row coordinates from file. Cheater alert!");
+                row = oldRow;
+                col = oldCol;
+                }
+            else
+                if (col >= map[row].length) {
+                    row = oldRow;
+                    col = oldCol;
+                    System.out.println("Error reading column coordinates from file. Cheater alert!");
+                }
+            }
+
+
+
             }
 
             if(command.equalsIgnoreCase("quit")) {
