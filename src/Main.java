@@ -44,6 +44,23 @@ public class Main {
         Room theEntrance = new Room("The entrance", "A large entrance to the map.");
         Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
 
+
+        //Creating a dagger and adding it to the entrance
+        Item dagger = new Item("Dagger", "A small but deadly weapon");
+        theEntrance.setItem(dagger);
+
+        //Create a chest with three items and places it in the hall on the map.
+        Chest chest = new Chest("Chest", "A large chest containing some items");
+        Item shield = new Item("Shield", "A massive shield that works as a wall");
+        Item potion = new Item("Health Potion", "A potion that restores your health");
+        Item sword = new Item("Sword", "A sharp and mighty sword. You can barely wield it one handed");
+        chest.addItemsToChest(shield);
+        chest.addItemsToChest(potion);
+        chest.addItemsToChest(sword);
+        aHall.setItem(chest);
+
+
+
         Room[][] map = {
                 {pinkRoom, aHall},
                 {theEntrance, aDarkCave}
@@ -59,8 +76,7 @@ public class Main {
         // Här börjar spelloopen
         while(running) {
             // 1. Skriv ut i vilket rum vi är i
-            System.out.println(map[row][col].getName());
-            System.out.println(map[row][col].getDescription());
+            System.out.println(map[row][col].toString());
 
 
             // 2. Läs in kommando från användaren
@@ -117,6 +133,11 @@ public class Main {
             }
             if(command.equalsIgnoreCase("save")) {
             save(row, col);
+            }
+            if(command.equalsIgnoreCase("Look at item")){
+                String itemDescription = map[row][col].getItemDescription();
+                System.out.println(itemDescription);
+
             }
 
             if(command.equalsIgnoreCase("load")) {
