@@ -38,6 +38,34 @@ public class TextAdventureGame {
         }
         return null;
     }
+        private void updatePlayerPosition(String direction) {
+    // Kolla efter riktning
+                    if(direction.equalsIgnoreCase("north")) {
+        row--;
+        // Kontrollera så vi inte hamnar utanför kartan
+        if(row < 0) {
+            row = 0;
+        }
+    }
+                    else if(direction.equalsIgnoreCase("south")) {
+        row++;
+        if(row >= map.length) {
+            row--;
+        }
+    }
+                    else if(direction.equalsIgnoreCase("east")) {
+        col++;
+        if(col >= map[row].length) {
+            col--;
+        }
+    }
+                    else if(direction.equalsIgnoreCase("west")) {
+        col--;
+        if(col < 0) {
+            col = 0;
+        }
+    }
+    }
 
     public void initialization() {
 
@@ -102,36 +130,12 @@ public class TextAdventureGame {
             //      - load
             if(commandParts[0].equalsIgnoreCase("go")) {
                 // Vi har angett go som kommando
+                updatePlayerPosition(commandParts[1]);
 
 
                 // Kontrollera att man har skrivit något efter go, alltså en riktning
                 if(commandParts.length >= 2) {
-                    // Kolla efter riktning
-                    if(commandParts[1].equalsIgnoreCase("north")) {
-                        row--;
-                        // Kontrollera så vi inte hamnar utanför kartan
-                        if(row < 0) {
-                            row = 0;
-                        }
-                    }
-                    else if(commandParts[1].equalsIgnoreCase("south")) {
-                        row++;
-                        if(row >= map.length) {
-                            row--;
-                        }
-                    }
-                    else if(commandParts[1].equalsIgnoreCase("east")) {
-                        col++;
-                        if(col >= map[row].length) {
-                            col--;
-                        }
-                    }
-                    else if(commandParts[1].equalsIgnoreCase("west")) {
-                        col--;
-                        if(col < 0) {
-                            col = 0;
-                        }
-                    }
+
                     System.out.println("Going " + commandParts[1]);
                 }
                 else {
