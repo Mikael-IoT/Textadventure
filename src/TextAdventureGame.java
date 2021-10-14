@@ -167,15 +167,16 @@ public class TextAdventureGame {
                         System.out.println("Error reading column coordinates from file. Cheater alert!");
                     }
                 }
-
-
-
             }
 
             if(command.equalsIgnoreCase("quit")) {
                 running = false;
             }
         }
+    }
+
+    public void quit() {
         System.out.println("Thanks for playing TAG");
     }
+
 }
