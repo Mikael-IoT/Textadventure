@@ -5,10 +5,15 @@ import java.io.IOException;
 import java.util.Scanner;
 
 public class TextAdventureGame {
+
+    Room[][] map;
+    int row;
+    int col;
+
     public static void save(int row, int col) {
 
         File file = new File("./save/saved_game.txt");
-        try{
+        try {
             FileWriter fileWriter = new FileWriter(file);
             String position = String.format("%d, %d", row, col);
             fileWriter.write(position);
@@ -22,49 +27,53 @@ public class TextAdventureGame {
 
     public static String load() {
         File file = new File("./save/saved_game.txt");
-        try{
+        try {
             Scanner fileScanner = new Scanner(file);
             String position = fileScanner.nextLine();
             fileScanner.close();
             return position;
-        }
-        catch (FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
             System.out.println("Could not load game");
 
         }
         return null;
     }
 
-    public void runGame(){
-        // Initialisering
-        Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
-        Room aHall = new Room("A hall", "A large hallway with a fancy rug on the floor");
-        Room theEntrance = new Room("The entrance", "A large entrance to the map.");
-        Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
+    public void initialization() {
+
+            // Initialisering
+            Room pinkRoom = new Room("Pink room", "This is a room with pink walls filled with pink furniture");
+            Room aHall = new Room("A hall", "A large hallway with a fancy rug on the floor");
+            Room theEntrance = new Room("The entrance", "A large entrance to the map.");
+            Room aDarkCave = new Room("A dark cave", "A very dark cave without any lights, and it is close to pitch black.");
 
 
-        //Creating a dagger and adding it to the entrance
-        Item dagger = new Item("Dagger", "A small but deadly weapon");
-        theEntrance.setItem(dagger);
+            //Creating a dagger and adding it to the entrance
+            Item dagger = new Item("Dagger", "A small but deadly weapon");
+            theEntrance.setItem(dagger);
 
-        //Create a chest with three items and places it in the hall on the map.
-        Chest chest = new Chest("Chest", "A large chest containing some items");
-        Item shield = new Item("Shield", "A massive shield that works as a wall");
-        Item potion = new Item("Health Potion", "A potion that restores your health");
-        Item sword = new Item("Sword", "A sharp and mighty sword. You can barely wield it one handed");
-        chest.addItemsToChest(shield);
-        chest.addItemsToChest(potion);
-        chest.addItemsToChest(sword);
-        aHall.setItem(chest);
+            //Create a chest with three items and places it in the hall on the map.
+            Chest chest = new Chest("Chest", "A large chest containing some items");
+            Item shield = new Item("Shield", "A massive shield that works as a wall");
+            Item potion = new Item("Health Potion", "A potion that restores your health");
+            Item sword = new Item("Sword", "A sharp and mighty sword. You can barely wield it one handed");
+            chest.addItemsToChest(shield);
+            chest.addItemsToChest(potion);
+            chest.addItemsToChest(sword);
+            aHall.setItem(chest);
 
 
+            map = new Room[][] {
+                    {pinkRoom, aHall},
+                    {theEntrance, aDarkCave}};
 
-        Room[][] map = {
-                {pinkRoom, aHall},
-                {theEntrance, aDarkCave}
-        };
-        int row = 1;
-        int col = 0;
+            row = 1;
+            col = 0;
+
+        }
+    public void runGame () {
+
+
         Scanner input = new Scanner(System.in);
 
         System.out.println("Welcome to the Text Adventure Game (TAG)");
